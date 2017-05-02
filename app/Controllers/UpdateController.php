@@ -17,9 +17,9 @@ class UpdateController extends Controller
 	/**
 	 * Get all updates
 	 * 
-	 * @param Object $request
-	 * @param Object $response
-	 * @return Object $response
+	 * @param object $request
+	 * @param object $response
+	 * @return object $response
 	 */ 
 	public function getUpdates($request, $response)
 	{
@@ -35,11 +35,32 @@ class UpdateController extends Controller
 	}
 
 	/**
+	 * Get an update at a specified id
+	 * 
+	 * @param object $request
+	 * @param object $response
+	 * @param array $args
+	 * @return object $response
+	 */ 
+	public function getUpdate($request, $response, $args)
+	{
+		$update = Update::find($args['id']);
+
+		$resp['code'] = 200;
+		$resp['status'] = 'ok';
+		$resp['updates'] = $update;
+
+		return $response->withStatus(200)
+		        ->withHeader("Content-Type", "application/json")
+		        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	}
+
+	/**
 	 * Post a new update
 	 * 
-	 * @param Object $request
-	 * @param Object $response
-	 * @return Object $response
+	 * @param object $request
+	 * @param object $response
+	 * @return object $response
 	 */ 
 	public function postUpdate($request, $response)
 	{
