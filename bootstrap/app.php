@@ -22,6 +22,9 @@ $capsule->addConnection($container['settings']['db']);
 $capsule->bootEloquent();
 $capsule->setAsGlobal();
 
+// Set up a logger
+require __DIR__ . '/../config/logger.php';
+
 // Set up dependencies
 require __DIR__ . '/../config/dependencies.php';
 

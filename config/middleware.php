@@ -31,6 +31,7 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
 	"path" => "/api",
 	"passthrough" => ["/api/v1/auth/token"],
     "secret" => getenv("JWT_SECRET"),
+    "logger" => $container["logger"],
     "callback" => function ($request, $response, $arguments) use ($container) {
         $container["jwt"] = $arguments["decoded"];
     },
@@ -47,7 +48,7 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
  * Add Cross-origin resource sharing (Cors) Middleware
  */ 
 $app->add(new \Tuupola\Middleware\Cors([
-    //"logger" => $container["logger"],
+    "logger" => $container["logger"],
     "origin" => ["*"],
     "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
     "headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since"],
