@@ -160,6 +160,15 @@ class AuthController extends Controller
 			return $response->withStatus(200)
 			        ->withHeader("Content-Type", "application/json")
 			        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+		} else {
+			$resp['code'] = 401;
+			$resp['status'] = 'Unauthorized';
+			$resp['success'] = false;
+			$resp['message'] = 'The old password is incorrect!';
+
+			return $response->withStatus(401)
+			        ->withHeader("Content-Type", "application/json")
+			        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 		}
 	}
 }
