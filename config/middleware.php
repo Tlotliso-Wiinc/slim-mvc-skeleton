@@ -29,7 +29,7 @@ $app->add(new \Slim\Middleware\HttpBasicAuthentication([
 $app->add(new \Slim\Middleware\JwtAuthentication([
 	"secure" => false,
 	"path" => "/api",
-	"passthrough" => ["/api/v1/auth/token"],
+	"passthrough" => ["/api/v1/auth/token", "/signin", "/signup"],
     "secret" => getenv("JWT_SECRET"),
     "logger" => $container["logger"],
     "callback" => function ($request, $response, $arguments) use ($container) {

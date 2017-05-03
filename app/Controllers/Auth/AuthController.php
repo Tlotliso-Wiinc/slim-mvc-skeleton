@@ -53,7 +53,7 @@ class AuthController extends Controller
 			$resp['status'] = 'accepted';
 			$resp['message'] = 'The email address provided already exists!';
 
-			return $response->withStatus(201)
+			return $response->withStatus(202)
 			        ->withHeader("Content-Type", "application/json")
 			        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	 	}
@@ -65,11 +65,55 @@ class AuthController extends Controller
 			'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
 		]);
 
+	 	// generate the token based on the user info
+		$token = Auth::generateToken($user);
+
 		$resp['code'] = 201;
 		$resp['status'] = 'created';
 		$resp['message'] = 'Successfully registered a new user.';
+		$resp['token'] = $token;
 
 		return $response->withStatus(201)
+		        ->withHeader("Content-Type", "application/json")
+		        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	 } 
+
+	 /**
+	 * Login a user
+	 * 
+	 * @param Object $request
+	 * @param Object $response
+	 * @return Object $response
+	 */
+	 public function postSignIn($request, $response)
+	 {
+	 	$auth = Auth::attempt(
+	 		$request->getParam('email'),
+			$request->getParam('password')
+	 	);
+
+	 	if (!$auth) {
+	 		$resp['code'] = 202;
+			$resp['status'] = 'accepted';
+			$resp['message'] = 'Incorrect login credentials!';
+
+			return $response->withStatus(200)
+			        ->withHeader("Content-Type", "application/json")
+			        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	 	}
+
+	 	// get the user by email
+	 	$user = User::where('email', $request->getParam('email'))->first();
+
+	 	// generate the token based on the user info
+		$token = Auth::generateToken($user);
+
+		$resp['code'] = 200;
+		$resp['status'] = 'ok';
+		$resp['message'] = 'Successfully logged in';
+		$resp['token'] = $token;
+
+		return $response->withStatus(200)
 		        ->withHeader("Content-Type", "application/json")
 		        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	 } 
