@@ -100,4 +100,26 @@ class UpdateController extends Controller
 		        ->withHeader("Content-Type", "application/json")
 		        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	}
+
+	/**
+	 * Delete an update
+	 * 
+	 * @param object $request
+	 * @param object $response
+	 * @return object $response
+	 */ 
+	public function deleteUpdate($request, $response, $args)
+	{
+		$update = Update::find($args['id']);
+		Update::destroy($args['id']);
+		
+		$resp['code'] = 200;
+		$resp['status'] = 'ok';
+		$resp['message'] = 'successfully deleted the update';
+		$resp['update'] = $update;
+
+		return $response->withStatus(200)
+		        ->withHeader("Content-Type", "application/json")
+		        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	}
 }
