@@ -110,13 +110,12 @@ class UpdateController extends Controller
 	 */ 
 	public function deleteUpdate($request, $response, $args)
 	{
-		$update = Update::find($args['id']);
 		Update::destroy($args['id']);
 		
 		$resp['code'] = 200;
 		$resp['status'] = 'ok';
+		$resp['success'] = true;
 		$resp['message'] = 'successfully deleted the update';
-		$resp['update'] = $update;
 
 		return $response->withStatus(200)
 		        ->withHeader("Content-Type", "application/json")

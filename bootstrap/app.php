@@ -25,20 +25,20 @@ $capsule->setAsGlobal();
 // Set up a logger
 require __DIR__ . '/../config/logger.php';
 
-// Set up dependencies
-require __DIR__ . '/../config/dependencies.php';
-
-// Register middleware
-require __DIR__ . '/../config/middleware.php';
-
 // Set up the authentication dependencies
 require __DIR__ . '/../config/auth.php';
+
+// Set up dependencies
+require __DIR__ . '/../config/dependencies.php';
 
 // Set up the controllers
 require __DIR__ . '/../config/controllers.php';
 
 // Set up the view dependencies
 require __DIR__ . '/../config/view.php';
+
+// Register middleware
+require __DIR__ . '/../config/middleware.php';
 
 // Set up validation rules
 v::with('App\\Validation\\Rules\\');

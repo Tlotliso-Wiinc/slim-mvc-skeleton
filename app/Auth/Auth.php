@@ -53,7 +53,7 @@ class Auth
 	        "jti" => base64_encode(mcrypt_create_iv(32)),
 	        'iss'  => $_SERVER['SERVER_NAME'],
 	        'user' => [                  	// Data related to the signer user
-	            'id'   => $user['id'], 		// userid from the users table
+	            'id'   => $user['id'], 		// user id from the users table
 	            'email' => $user['email'], 	// User email
 	        ]
 	    ];

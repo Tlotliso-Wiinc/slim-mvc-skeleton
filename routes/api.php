@@ -1,7 +1,6 @@
 <?php
 
 $app->group('/api/v1', function() {
-	
 	$this->post('/auth/token', 'AuthController:getToken');
 
 	$this->get('/updates', 'UpdateController:getUpdates');

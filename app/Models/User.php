@@ -15,5 +15,17 @@ class User extends Model
 	protected $fillable = [
 		'firstname', 'lastname', 'email', 'password'
 	];
-	
+
+	/**
+	 * Set a new password
+	 * 
+	 * @param string $password
+	 * @return void
+	 */ 
+	public function setPassword($password)
+	{
+		$this->update([
+			'password' => password_hash($password, PASSWORD_DEFAULT)
+		]);
+	}	
 }
