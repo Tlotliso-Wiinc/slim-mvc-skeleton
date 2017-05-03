@@ -46,9 +46,21 @@ class UpdateController extends Controller
 	{
 		$update = Update::find($args['id']);
 
+		if (!$update) {
+			$resp['code'] = 404;
+			$resp['status'] = 'Not Found';
+			$resp['success'] = false;
+			$resp['message'] = 'The update is not available';
+
+			return $response->withStatus(404)
+		        ->withHeader("Content-Type", "application/json")
+		        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));	
+		}
+
 		$resp['code'] = 200;
 		$resp['status'] = 'ok';
-		$resp['updates'] = $update;
+		$resp['success'] = true;
+		$resp['update'] = $update;
 
 		return $response->withStatus(200)
 		        ->withHeader("Content-Type", "application/json")
@@ -88,6 +100,18 @@ class UpdateController extends Controller
 	public function putUpdate($request, $response, $args)
 	{
 		$update = Update::find($args['id']);
+
+		if (!$update) {
+			$resp['code'] = 404;
+			$resp['status'] = 'Not Found';
+			$resp['success'] = false;
+			$resp['message'] = 'The update is not available';
+
+			return $response->withStatus(404)
+		        ->withHeader("Content-Type", "application/json")
+		        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));	
+		}
+
 		$update->message = $request->getParam('message');
 		$update->save();
 
@@ -110,6 +134,19 @@ class UpdateController extends Controller
 	 */ 
 	public function deleteUpdate($request, $response, $args)
 	{
+		$update = Update::find($args['id']);
+
+		if (!$update) {
+			$resp['code'] = 404;
+			$resp['status'] = 'Not Found';
+			$resp['success'] = false;
+			$resp['message'] = 'The update is not available';
+
+			return $response->withStatus(404)
+		        ->withHeader("Content-Type", "application/json")
+		        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));	
+		}
+
 		Update::destroy($args['id']);
 		
 		$resp['code'] = 200;
