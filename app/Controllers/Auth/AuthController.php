@@ -48,6 +48,16 @@ class AuthController extends Controller
 	 */
 	 public function postSignUp($request, $response)
 	 {
+	 	if ($user = User::where('email', $request->getParam('email'))->first()) {
+	 		$resp['code'] = 202;
+			$resp['status'] = 'accepted';
+			$resp['message'] = 'The email address provided already exists!';
+
+			return $response->withStatus(201)
+			        ->withHeader("Content-Type", "application/json")
+			        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	 	}
+
 	 	$user = User::create([
 			'firstname' => $request->getParam('firstname'),
 			'lastname' => $request->getParam('lastname'),
@@ -56,7 +66,7 @@ class AuthController extends Controller
 		]);
 
 		$resp['code'] = 201;
-		$resp['status'] = 'ok';
+		$resp['status'] = 'created';
 		$resp['message'] = 'Successfully registered a new user.';
 
 		return $response->withStatus(201)
