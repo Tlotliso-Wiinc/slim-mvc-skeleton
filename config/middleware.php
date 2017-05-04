@@ -68,3 +68,6 @@ $app->add(new \Tuupola\Middleware\Cors([
 $app->add(new Gofabian\Negotiation\NegotiationMiddleware([
     'accept' => ['application/json']
 ]));
+
+// Add the Cache Middleware
+$app->add(new \Slim\HttpCache\Cache('public', 86400));

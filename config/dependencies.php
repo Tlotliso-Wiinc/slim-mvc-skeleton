@@ -11,3 +11,7 @@ $container['validator'] = function($container) {
 	return new App\Validation\Validator;
 
 };
+
+$container['cache'] = function () {
+    return new \Slim\HttpCache\CacheProvider();
+};
