@@ -123,6 +123,7 @@ class UpdateController extends Controller
 
 		return $response->withStatus(200)
 		        ->withHeader("Content-Type", "application/json")
+		        ->withHeader("Location", getenv('APP_URL') . "/api/v1/updates/" . $update->id)
 		        ->write(json_encode($resp, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	}
 
