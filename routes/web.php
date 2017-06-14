@@ -11,6 +11,6 @@ $app->group('', function() {
 	$this->post('/signin', 'AuthController:postSignIn');
 });
 
-$app->group('/api', function() {
+$app->group('', function() {
 	$this->post('/password/change', 'AuthController:postChangePassword');
 });

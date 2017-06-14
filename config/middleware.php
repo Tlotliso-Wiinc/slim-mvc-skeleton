@@ -28,7 +28,7 @@ $app->add(new \Slim\Middleware\HttpBasicAuthentication([
  */ 
 $app->add(new \Slim\Middleware\JwtAuthentication([
 	"secure" => false,
-	"path" => "/api",
+	"path" => ["/api", "/password/change"],
 	"passthrough" => ["/api/v1/auth/token", "/signin", "/signup"],
     "secret" => getenv("JWT_SECRET"),
     "logger" => $container["logger"],
