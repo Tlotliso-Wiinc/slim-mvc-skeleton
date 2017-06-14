@@ -17,6 +17,11 @@ class User extends Model
 	];
 
 	/**
+	 * @var array $hidden
+	 */ 
+	protected $hidden = ['password'];
+
+	/**
 	 * Set a new password
 	 * 
 	 * @param string $password
