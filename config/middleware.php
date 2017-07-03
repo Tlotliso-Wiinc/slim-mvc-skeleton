@@ -3,6 +3,16 @@
 use \Slim\Middleware\HttpBasicAuthentication\PdoAuthenticator;
 
 /**
+ * Add Validation errors Middleware
+ */ 
+$app->add(new \App\Middleware\ValidationErrorsMiddleware($container));
+
+/**
+ * Add Old input Middleware
+ */ 
+$app->add(new \App\Middleware\OldInputMiddleware($container));
+
+/**
  * Add basic authentication Middleware
  */
 $app->add(new \Slim\Middleware\HttpBasicAuthentication([
