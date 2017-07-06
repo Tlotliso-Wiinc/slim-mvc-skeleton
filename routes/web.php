@@ -12,5 +12,5 @@ $app->group('', function() {
 });
 
 $app->group('', function() {
-	$this->post('/password/change', 'AuthController:postChangePassword');
+	$this->post('/password/change', 'PasswordController:postChangePassword');
 });

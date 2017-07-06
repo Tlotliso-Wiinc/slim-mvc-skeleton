@@ -12,6 +12,12 @@ $container['AuthController'] = function($container) {
 
 };
 
+$container['PasswordController'] = function($container) {
+
+	return new \App\Controllers\Auth\PasswordController($container);
+
+};
+
 $container['UpdateController'] = function($container) {
 
 	return new \App\Controllers\UpdateController($container);
