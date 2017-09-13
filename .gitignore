@@ -1,3 +1,5 @@
 .env
 vendor/
+/deploy
+deploy.ini
 composer.lock
